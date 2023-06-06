@@ -46,7 +46,7 @@ export async function createAffiliateGatewayAccount(
 
   const [firstName, lastName] = name.split(' ')
 
-  const phoneFormatted = `+${phone.replace(/\D/gi, '')}`
+  const phoneFormatted = `+55${phone.replace(/\D/gi, '')}`
 
   try {
     const accountData = {
