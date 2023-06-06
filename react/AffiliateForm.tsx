@@ -3,9 +3,6 @@ import React, { FormEvent } from 'react'
 import { Card, Button } from 'vtex.styleguide'
 import { useMutation } from 'react-apollo'
 
-// Types
-import { Affiliate } from './typings/affiliate'
-
 // Styles
 import styles from './style.css'
 
