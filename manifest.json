@@ -20,7 +20,9 @@
     "vtex.device-detector": "0.x",
     "vtex.flex-layout": "0.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [
     {
       "name": "outbound-access",

@@ -29,6 +29,8 @@ export async function createAffiliateGatewayAccount(
 
   const { email, id, phone, address, name }: Params = await json(req)
 
+  console.info({ email, id, phone, address, name })
+
   const {
     city,
     neighborhood,
@@ -44,10 +46,10 @@ export async function createAffiliateGatewayAccount(
 
   const [firstName, lastName] = name.split(' ')
 
-  const phoneFormatted = `+55${phone.replace(/\D/gi, '')}`
+  const phoneFormatted = `+${phone.replace(/\D/gi, '')}`
 
   try {
-    const response = await stripe.createAccount({
+    const accountData = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       type: 'custom',
@@ -105,7 +107,11 @@ export async function createAffiliateGatewayAccount(
           requested: true,
         },
       },
-    })
+    } as any
+
+    console.info({ accountData })
+
+    const response = await stripe.createAccount(accountData)
 
     await externalAccountAffiliation.save({
       affiliateId: id,
