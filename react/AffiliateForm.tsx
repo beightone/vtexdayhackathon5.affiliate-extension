@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useEffect, FormEvent } from 'react'
+import React, { FormEvent } from 'react'
 import { Card, Button } from 'vtex.styleguide'
 import { useMutation } from 'react-apollo'
 
@@ -38,7 +38,7 @@ const createAffiliateGatewayAccount = async (fields: Affiliate) => {
     body: JSON.stringify(fields),
   }
 
-  const response = await fetch(apiURL, config)
+  const response = await fetch(apiURL.toString(), config)
 
   return response.json()
 }
