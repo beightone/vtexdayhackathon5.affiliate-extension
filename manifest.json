@@ -1,7 +1,7 @@
 {
   "vendor": "vtexdayhackathon5",
   "name": "affiliate-extension",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "title": "Affiliate frontend",
   "description": "Affiliate frontend app",
   "builders": {
