@@ -1,7 +1,7 @@
 {
   "vendor": "vtexdayhackathon5",
   "name": "affiliate-extension",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "title": "Affiliate frontend",
   "description": "Affiliate frontend app",
   "builders": {
@@ -20,9 +20,7 @@
     "vtex.device-detector": "0.x",
     "vtex.flex-layout": "0.x"
   },
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "policies": [
     {
       "name": "outbound-access",
