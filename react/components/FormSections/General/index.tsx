@@ -1,12 +1,24 @@
 // Dependencies
 import React, { ChangeEvent } from 'react'
-import { Input } from 'vtex.styleguide'
+import { Input, EXPERIMENTAL_Select as Select } from 'vtex.styleguide'
+import InputMask from 'react-input-mask'
 
 // Components
 import Grid from '../../Grid'
 
 // Custom Hooks
 import { useFormContext } from '../../../contexts/FormContextProvider'
+
+const documentOptions = [
+  {
+    label: 'CPF',
+    value: 'CPF',
+  },
+  {
+    label: 'CNPJ',
+    value: 'CNPJ',
+  },
+]
 
 const General = () => {
   const { fields, setFields } = useFormContext()
@@ -25,9 +37,22 @@ const General = () => {
     const { target } = event
     const { id, value } = target
 
+    let newValue = value
+
+    if (['slug', 'refId'].includes(id)) {
+      newValue = value.replace(/\s/, '-')
+    }
+
     setFields((prevState) => ({
       ...prevState,
-      [id]: value,
+      [id]: newValue,
+    }))
+  }
+
+  function handleDocumentTypeChange(option: typeof documentOptions[0]) {
+    setFields((prevState) => ({
+      ...prevState,
+      documentType: option?.value ?? '',
     }))
   }
 
@@ -61,13 +86,14 @@ const General = () => {
           onChange={handleInputChange}
         />
 
-        <Input
-          required
-          id="phone"
+        <InputMask
           value={phone}
-          label="Telefone"
+          mask="(99) \9 9999-9999"
+          maskPlaceholder={null}
           onChange={handleInputChange}
-        />
+        >
+          <Input required id="phone" label="Telefone" />
+        </InputMask>
 
         <Input
           required
@@ -75,6 +101,7 @@ const General = () => {
           value={slug}
           label="Identificador da URL"
           onChange={handleInputChange}
+          helpText="Exemplo: minha-loja"
         />
 
         <Input
@@ -85,21 +112,33 @@ const General = () => {
           onChange={handleInputChange}
         />
 
-        <Input
+        <Select
           required
-          id="documentType"
-          value={documentType}
+          multi={false}
+          value={{
+            label: documentType,
+            value: documentType,
+          }}
           label="Tipo de documento"
-          onChange={handleInputChange}
+          options={documentOptions}
+          onChange={handleDocumentTypeChange}
+          placeholder="Selecione o tipo de documento"
         />
 
-        <Input
-          required
-          id="document"
+        <InputMask
           value={document}
-          label="Documento"
+          maskPlaceholder={null}
           onChange={handleInputChange}
-        />
+          placeholder={
+            documentType &&
+            (documentType === 'CPF' ? '999.999.999-99' : '99.999.999/9999-99')
+          }
+          mask={
+            documentType === 'CPF' ? '999.999.999-99' : '99.999.999/9999-99'
+          }
+        >
+          <Input required id="document" label="Documento" />
+        </InputMask>
       </Grid>
     </>
   )

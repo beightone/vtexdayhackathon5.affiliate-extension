@@ -10,24 +10,18 @@ import { useFormContext } from '../../../contexts/FormContextProvider'
 
 const Social = () => {
   const { fields, setFields } = useFormContext()
-  const {
-    instagram,
-    facebook,
-    whatsapp,
-    gtmId
-  } = fields.marketing
+  const { instagram, facebook, whatsapp, gtmId } = fields.marketing
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { target } = event
     const { id, value } = target
 
-
     setFields((prevState) => ({
       ...prevState,
       marketing: {
         ...prevState.marketing,
-        [id]: value
-      }
+        [id]: value,
+      },
     }))
   }
 
@@ -60,6 +54,7 @@ const Social = () => {
         <Input
           id="gtmId"
           label="ID do GTM"
+          prefix="GTM-"
           value={gtmId}
           onChange={handleInputChange}
         />

@@ -5,9 +5,7 @@ import React from 'react'
 import styles from './style.css'
 
 const Grid: React.FC = ({ children }) => (
-  <div className={styles.grid}>
-    {children}
-  </div>
+  <div className={styles.grid}>{children}</div>
 )
 
 export default Grid

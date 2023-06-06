@@ -3,6 +3,9 @@ import React, { useEffect, FormEvent } from 'react'
 import { Card, Button } from 'vtex.styleguide'
 import { useMutation } from 'react-apollo'
 
+// Types
+import { Affiliate } from './typings/affiliate'
+
 // Styles
 import styles from './style.css'
 
@@ -10,31 +13,54 @@ import styles from './style.css'
 import addAffiliateMutation from './graphql/addAffiliate.graphql'
 
 // Provider
-import FormContextProvider, { useFormContext } from './contexts/FormContextProvider'
+import FormContextProvider, {
+  useFormContext,
+} from './contexts/FormContextProvider'
 
 // Components
 import General from './components/FormSections/General'
 import Address from './components/FormSections/Address'
 import Social from './components/FormSections/Social'
 
+const createAffiliateGatewayAccount = async (fields: Affiliate) => {
+  const endpoint = '/_v/createAffiliateGatewayAccount'
+
+  const currentURL = new URL(window.location.toString())
+
+  const baseURL = currentURL.searchParams.has('staging')
+    ? 'https://staging--vtexdayhackathon5.myvtex.com'
+    : window.location.origin
+
+  const apiURL = new URL(baseURL, endpoint)
+
+  const config = {
+    method: 'POST',
+    body: JSON.stringify(fields),
+  }
+
+  const response = await fetch(apiURL, config)
+
+  return response.json()
+}
+
 const AffiliateForm = () => {
   const { fields } = useFormContext()
 
-  const [addAffiliate, { loading, error }] = useMutation(addAffiliateMutation)
+  const [addAffiliate, { loading }] = useMutation(addAffiliateMutation, {
+    onCompleted: async () => {
+      await createAffiliateGatewayAccount(fields)
+    },
+  })
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault()
 
     addAffiliate({
       variables: {
-        newAffiliate: fields
-      }
+        newAffiliate: fields,
+      },
     })
   }
-
-  useEffect(() => {
-    error && console.log({ error })
-  }, [error])
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -42,7 +68,7 @@ const AffiliateForm = () => {
         <Card>
           <General />
           <Address />
-          <Social/>
+          <Social />
 
           <div className="mt6">
             <Button isLoading={loading} disabled={loading} type="submit">
