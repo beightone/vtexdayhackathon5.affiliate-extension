@@ -20,7 +20,20 @@
     "vtex.device-detector": "0.x",
     "vtex.flex-layout": "0.x"
   },
-  "registries": ["smartcheckout"],
-  "policies": [],
+  "registries": [
+    "smartcheckout"
+  ],
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.stripe.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "ADMIN_DS"
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

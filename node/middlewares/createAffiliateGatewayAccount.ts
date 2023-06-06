@@ -24,16 +24,13 @@ export async function createAffiliateGatewayAccount(
   const {
     vtex: { logger },
     req,
-    clients: { stripe },
+    clients: { stripe, externalAccountAffiliation },
   } = ctx
 
   const { email, id, phone, address, name }: Params = await json(req)
 
-  console.info({ email, id, phone, address, name })
-
   const {
     city,
-    country,
     neighborhood,
     reference,
     postalCode,
@@ -46,6 +43,8 @@ export async function createAffiliateGatewayAccount(
   const line2 = `${reference} ${neighborhood}`
 
   const [firstName, lastName] = name.split(' ')
+
+  const phoneFormatted = `+55${phone.replace(/\D/gi, '')}`
 
   try {
     const response = await stripe.createAccount({
@@ -70,12 +69,12 @@ export async function createAffiliateGatewayAccount(
           line1,
           line2,
           city,
-          country,
+          country: 'BR',
           postal_code: postalCode,
           state,
         },
         email,
-        phone,
+        phone: phoneFormatted,
         id_number: '222222222',
         first_name: firstName,
         last_name: lastName,
@@ -106,6 +105,12 @@ export async function createAffiliateGatewayAccount(
           requested: true,
         },
       },
+    })
+
+    await externalAccountAffiliation.save({
+      affiliateId: id,
+      externalAccountId: response.id,
+      type: 'stripe',
     })
 
     ctx.status = 200
