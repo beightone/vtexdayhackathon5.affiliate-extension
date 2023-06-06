@@ -1,7 +1,7 @@
 {
   "vendor": "vtexdayhackathon5",
   "name": "affiliate-extension",
-  "version": "0.0.4",
+  "version": "0.0.14",
   "title": "Affiliate frontend",
   "description": "Affiliate frontend app",
   "builders": {
@@ -25,6 +25,24 @@
   "registries": [
     "smartcheckout"
   ],
-  "policies": [],
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.stripe.com",
+        "path": "/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.vtex.com",
+        "path": "/api/dataentities/*"
+      }
+    },
+    {
+      "name": "ADMIN_DS"
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

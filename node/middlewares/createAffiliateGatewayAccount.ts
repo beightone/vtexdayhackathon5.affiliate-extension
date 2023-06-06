@@ -24,7 +24,7 @@ export async function createAffiliateGatewayAccount(
   const {
     vtex: { logger },
     req,
-    clients: { stripe },
+    clients: { stripe, externalAccountAffiliation },
   } = ctx
 
   const { email, id, phone, address, name }: Params = await json(req)
@@ -33,7 +33,6 @@ export async function createAffiliateGatewayAccount(
 
   const {
     city,
-    country,
     neighborhood,
     reference,
     postalCode,
@@ -47,8 +46,10 @@ export async function createAffiliateGatewayAccount(
 
   const [firstName, lastName] = name.split(' ')
 
+  const phoneFormatted = `+55${phone.replace(/\D/gi, '')}`
+
   try {
-    const response = await stripe.createAccount({
+    const accountData = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       type: 'custom',
@@ -70,12 +71,12 @@ export async function createAffiliateGatewayAccount(
           line1,
           line2,
           city,
-          country,
+          country: 'BR',
           postal_code: postalCode,
           state,
         },
         email,
-        phone,
+        phone: phoneFormatted,
         id_number: '222222222',
         first_name: firstName,
         last_name: lastName,
@@ -106,18 +107,28 @@ export async function createAffiliateGatewayAccount(
           requested: true,
         },
       },
+    } as any
+
+    console.info({ accountData })
+
+    const response = await stripe.createAccount(accountData)
+
+    await externalAccountAffiliation.save({
+      affiliateId: id,
+      externalAccountId: response.id,
+      type: 'stripe',
     })
 
     ctx.status = 200
     ctx.body = { response }
   } catch (err) {
     console.error({ err })
-    console.error({ errResponse: err.response.data })
+    console.error({ errResponse: JSON.stringify(err.response.data) })
     logger.error({
       metric: 'create-affiliate-gateway-account',
       message: err.message,
     })
-    throw new Error('Error create the affiliate gateway account')
+    throw new Error(err.message)
   }
 
   await next()
