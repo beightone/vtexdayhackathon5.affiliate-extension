@@ -117,12 +117,12 @@ export async function createAffiliateGatewayAccount(
     ctx.body = { response }
   } catch (err) {
     console.error({ err })
-    console.error({ errResponse: err.response.data })
+    console.error({ errResponse: JSON.stringify(err.response.data) })
     logger.error({
       metric: 'create-affiliate-gateway-account',
       message: err.message,
     })
-    throw new Error('Error create the affiliate gateway account')
+    throw new Error(err.message)
   }
 
   await next()

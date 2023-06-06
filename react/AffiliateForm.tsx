@@ -47,8 +47,12 @@ const AffiliateForm = () => {
   const { fields } = useFormContext()
 
   const [addAffiliate, { loading }] = useMutation(addAffiliateMutation, {
-    onCompleted: async () => {
-      await createAffiliateGatewayAccount(fields)
+    onCompleted: async (res) => {
+      console.log({ res })
+      await createAffiliateGatewayAccount({
+        ...fields,
+        id: res.addAffiliate.id,
+      })
     },
   })
 
