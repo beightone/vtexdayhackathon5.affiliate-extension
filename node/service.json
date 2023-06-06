@@ -6,49 +6,9 @@
   "maxReplicas": 1,
   "workers": 1,
   "routes": {
-    "affiliate": {
-      "path": "/_v/affiliate",
-      "public": true
-    },
-    "verifyUserAffiliateLead": {
-      "path": "/_v/verifyUserAffiliateLead",
-      "public": false,
-      "access": "authorized",
-      "policies": [
-        {
-          "effect": "allow",
-          "actions": [
-            "post"
-          ],
-          "principals": [
-            "vrn:apps:*:*:*:app/vtex.affiliates-order-form-spy@*"
-          ]
-        }
-      ]
-    },
     "createAffiliateGatewayAccount": {
       "path": "/_v/createAffiliateGatewayAccount",
       "public": true
-    }
-  },
-  "events": {
-    "onAppInstalled": {
-      "sender": "apps",
-      "keys": [
-        "setup"
-      ]
-    },
-    "setAffiliateLead": {
-      "sender": "vtex.orders-broadcast",
-      "topics": [
-        "payment-approved"
-      ]
-    },
-    "verifyUserAffiliateLead": {
-      "sender": "vtex.order-form-courier",
-      "topics": [
-        "order-form-email-updated"
-      ]
     }
   }
 }
