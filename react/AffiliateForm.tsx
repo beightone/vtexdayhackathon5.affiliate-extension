@@ -57,7 +57,7 @@ const AffiliateForm = () => {
 
     addAffiliate({
       variables: {
-        newAffiliate: fields,
+        newAffiliate: { ...fields, phone: `+55${fields.phone}` },
       },
     })
   }

@@ -92,7 +92,7 @@ const General = () => {
           maskPlaceholder={null}
           onChange={handleInputChange}
         >
-          <Input required id="phone" label="Telefone" />
+          <Input prefix="+55" required id="phone" label="Telefone" />
         </InputMask>
 
         <Input
