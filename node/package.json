@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@vtex/clients": "^2.17.0",
+    "co-body": "^6.0.0",
+    "ramda": "^0.25.0",
+    "stripe": "^12.8.0"
+  },
+  "devDependencies": {
+    "@types/co-body": "^0.0.3",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^12.0.0",
+    "@types/ramda": "types/npm-ramda#dist",
+    "@vtex/api": "6.45.15",
+    "@vtex/test-tools": "^3.4.1",
+    "@vtex/tsconfig": "^0.5.6",
+    "typescript": "3.9.7",
+    "vtex.device-detector": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.device-detector@0.2.6/public/@types/vtex.device-detector",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.4/public/@types/vtex.styleguide",
+    "vtex.vtexday2023-hackathon-affiliates": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.vtexday2023-hackathon-affiliates@1.1.0/public/@types/vtex.vtexday2023-hackathon-affiliates"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit --pretty",
+    "test": "vtex-test-tools test --collectCoverage"
+  },
+  "version": "1.5.3"
+}

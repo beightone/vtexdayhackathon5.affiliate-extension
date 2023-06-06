@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "External Account Affiliation",
+  "type": "object",
+  "properties": {
+    "affiliateId": {
+      "type": "string"
+    },
+    "externalAccountId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "affiliateId",
+    "externalAccountId",
+    "type"
+  ],
+  "v-indexed": [
+    "affiliateId",
+    "externalAccountId",
+    "type"
+  ],
+  "v-cache": false
+}
