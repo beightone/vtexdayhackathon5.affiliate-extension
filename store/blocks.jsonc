@@ -1,0 +1,5 @@
+{
+  "store.affiliate-form": {
+    "children": ["form"]
+  }
+}
