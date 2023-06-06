@@ -1,5 +1,9 @@
 {
+  "store.affiliates-orders": {},
   "form": {
     "component": "AffiliateForm"
+  },
+  "affiliate-orders": {
+    "component": "AffiliateOrders"
   }
 }

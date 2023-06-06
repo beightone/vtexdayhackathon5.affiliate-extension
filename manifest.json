@@ -16,11 +16,15 @@
     "vtex.vtexday2023-hackathon-affiliates": "1.x"
   },
   "dependencies": {
+    "vtex.store": "2.x",
     "vtex.styleguide": "9.x",
     "vtex.device-detector": "0.x",
-    "vtex.flex-layout": "0.x"
+    "vtex.flex-layout": "0.x",
+    "vtex.rich-text": "0.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

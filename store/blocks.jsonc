@@ -1,5 +1,9 @@
 {
   "store.affiliate-form": {
     "children": ["form"]
+  },
+
+  "store.affiliates-orders": {
+    "blocks": ["affiliate-orders"]
   }
 }
