@@ -1,7 +1,7 @@
 {
   "vendor": "vtexdayhackathon5",
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "title": "Affiliate frontend",
   "description": "Affiliate frontend app",
   "builders": {
@@ -17,9 +17,7 @@
     "vtex.styleguide": "9.x",
     "vtex.device-detector": "0.x"
   },
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "policies": [],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
