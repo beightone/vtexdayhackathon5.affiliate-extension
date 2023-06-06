@@ -23,22 +23,22 @@ import Address from './components/FormSections/Address'
 import Social from './components/FormSections/Social'
 
 const createAffiliateGatewayAccount = async (fields: Affiliate) => {
-  const endpoint = '/_v/createAffiliateGatewayAccount'
+  // const endpoint = '/_v/createAffiliateGatewayAccount'
 
-  const currentURL = new URL(window.location.toString())
+  // const currentURL = new URL(window.location.toString())
 
-  const baseURL = currentURL.searchParams.has('staging')
-    ? 'https://staging--vtexdayhackathon5.myvtex.com'
-    : window.location.origin
+  // const baseURL = currentURL.searchParams.has('staging')
+  //   ? 'https://staging--vtexdayhackathon5.myvtex.com'
+  //   : window.location.origin
 
-  const apiURL = new URL(baseURL, endpoint)
+  // const apiURL = new URL(baseURL, endpoint)
 
   const config = {
     method: 'POST',
     body: JSON.stringify(fields),
   }
 
-  const response = await fetch(apiURL.toString(), config)
+  const response = await fetch('/_v/createAffiliateGatewayAccount', config)
 
   return response.json()
 }
